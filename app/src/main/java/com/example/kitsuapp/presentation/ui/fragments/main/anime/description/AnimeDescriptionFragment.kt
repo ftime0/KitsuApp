@@ -1,5 +1,7 @@
 package com.example.kitsuapp.presentation.ui.fragments.main.anime.description
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -24,6 +26,10 @@ class AnimeDescriptionFragment :
     override fun setupSubscribes() {
         subscribesAnime()
     }
+    override fun setupListeners() {
+        openYoutubeAnime()
+    }
+
 
     private fun subscribesAnime() {
         viewModel.animeDetailedState.collectUiState(success = {
@@ -43,4 +49,16 @@ class AnimeDescriptionFragment :
             }
         }, error = { Log.e("ERROR", it) })
     }
+
+    private fun openYoutubeAnime() {
+        binding.btnTrailer.setOnClickListener {
+            this.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("vnd.youtube:${args.video}")
+                )
+            )
+        }
+    }
+
 }

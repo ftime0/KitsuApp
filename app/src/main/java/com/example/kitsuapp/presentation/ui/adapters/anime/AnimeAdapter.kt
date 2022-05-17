@@ -10,22 +10,19 @@ import com.example.kitsuapp.presentation.extention.setImage
 import com.example.kitsuapp.presentation.models.anime.AnimeDataUI
 
 class AnimeAdapter(
-    private val onClick: (id: String) -> Unit
-) :
-    PagingDataAdapter<AnimeDataUI, AnimeAdapter.AnimeViewHolder>(BaseDiffUtils()) {
+    private val onClick: (id: String, videoId: String?) -> Unit
+) : PagingDataAdapter<AnimeDataUI, AnimeAdapter.AnimeViewHolder>(BaseDiffUtils()) {
+
     inner class AnimeViewHolder(private val binding: ItemAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(ui: AnimeDataUI) {
-            binding.imImage.setImage(ui.animeDto.posterImage?.original)
+        fun onBind(animeDataDto: AnimeDataUI) {
+            binding.imImage.setImage(animeDataDto.animeDto.posterImage?.original)
             binding.root.setOnClickListener {
-                onClick(ui.id)
-
+                onClick(animeDataDto.id, animeDataDto.animeDto.youtubeVideoId)
             }
-
-
         }
-
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {
         return AnimeViewHolder(
@@ -39,8 +36,6 @@ class AnimeAdapter(
 
     override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
         getItem(position)?.let { holder.onBind(it) }
-
     }
-
 }
 

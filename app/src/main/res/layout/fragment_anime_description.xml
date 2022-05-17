@@ -27,14 +27,14 @@
         android:layout_width="16dp"
         android:layout_height="100dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="0dp" />
+        app:layout_constraintGuide_begin="16dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="24dp" />
+        app:layout_constraintGuide_end="16dp" />
 
 
     <com.google.android.material.card.MaterialCardView
@@ -84,6 +84,17 @@
         app:layout_constraintStart_toEndOf="@id/gl_subtype"
         app:layout_constraintTop_toBottomOf="@id/im_cover" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_trailer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#16a086"
+        android:text="Trailer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/im_cover" />
+
     <TextView
         android:id="@+id/tv_bullet_point"
         android:layout_width="wrap_content"
@@ -107,7 +118,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="6dp"
@@ -115,7 +126,8 @@
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/gl_subtype"
         app:layout_constraintTop_toBottomOf="@id/tv_subtype"
-        tools:text="@tools:sample/lorem" />
+        app:layout_constraintEnd_toEndOf="@+id/gl_end"
+        tools:text="@tools:sample/lorem/random" />
 
     <TextView
         android:id="@+id/tv_synopsis"
