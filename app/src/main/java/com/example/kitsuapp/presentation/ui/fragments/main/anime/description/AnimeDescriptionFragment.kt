@@ -3,6 +3,7 @@ package com.example.kitsuapp.presentation.ui.fragments.main.anime.description
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -45,6 +46,9 @@ class AnimeDescriptionFragment :
                     tvAverageRating.text = "${data.animeDto.averageRating}%"
                     tvRating.text = "Rank #${data.animeDto.ratingRank}"
                     tvPopularity.text = "Rank #${data.animeDto.popularityRank}"
+                    data.animeDto.youtubeVideoId?.let {
+                        binding.btnTrailer.isVisible = true
+                    }
                 }
             }
         }, error = { Log.e("ERROR", it) })
@@ -52,12 +56,8 @@ class AnimeDescriptionFragment :
 
     private fun openYoutubeAnime() {
         binding.btnTrailer.setOnClickListener {
-            this.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("vnd.youtube:${args.video}")
-                )
-            )
+            this.startActivity(Intent(Intent.ACTION_VIEW,
+                Uri.parse("vnd.youtube:${args.video}")))
         }
     }
 
