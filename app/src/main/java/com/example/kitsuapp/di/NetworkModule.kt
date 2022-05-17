@@ -1,6 +1,7 @@
 package com.example.kitsuapp.di
 
 import com.example.kitsuapp.data.remote.NetworkClient
+import com.example.kitsuapp.data.remote.RetrofitClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

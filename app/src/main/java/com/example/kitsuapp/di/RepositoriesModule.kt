@@ -23,4 +23,6 @@ abstract class RepositoriesModule {
 
     @Binds
     abstract  fun provideAuthenticationApiService(authenticationRepositoryImpl: AuthenticationRepositoryImpl) : AuthenticationRepository
+
+
 }
