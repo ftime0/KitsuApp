@@ -10,36 +10,34 @@ import com.example.kitsuapp.presentation.extention.setImage
 import com.example.kitsuapp.presentation.models.anime.AnimeDataUI
 
 class AnimeAdapter(
-    private val onClick: (id: String, videoId: String?) -> Unit,
-) : PagingDataAdapter<AnimeDataUI, AnimeAdapter.AnimeViewHolder>(BaseDiffUtils()) {
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {
-        return AnimeViewHolder(
-            ItemAnimeBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-    }
-
+    private val onClick: (id: String, trailerId: String?) -> Unit,
+) :
+    PagingDataAdapter<AnimeDataUI, AnimeAdapter.AnimeViewHolder>(BaseDiffUtils()) {
     inner class AnimeViewHolder(private val binding: ItemAnimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(animeDataDto: AnimeDataUI) {
-            binding.imImage.setImage(animeDataDto.animeDto.posterImage?.original)
+        fun onBind(animeDataUI: AnimeDataUI) {
+            binding.imImage.setImage(animeDataUI.animeDto.posterImage?.original)
             binding.root.setOnClickListener {
-                if (animeDataDto.animeDto.youtubeVideoId == null)
-                    onClick(animeDataDto.id, null)
+                if (animeDataUI.animeDto.youtubeVideoId == null)
+                    onClick(animeDataUI.id, null)
                 else
-                    onClick(animeDataDto.id, animeDataDto.animeDto.youtubeVideoId)
+                    onClick(animeDataUI.id, animeDataUI.animeDto.youtubeVideoId)
             }
         }
     }
 
-    override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
-        getItem(position)?.let { holder.onBind(it) }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {
+        return AnimeViewHolder(
+            (ItemAnimeBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ))
+        )
     }
 
-}
+    override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
+        getItem(position)?.let { holder.onBind(it) }
 
+    }
+}

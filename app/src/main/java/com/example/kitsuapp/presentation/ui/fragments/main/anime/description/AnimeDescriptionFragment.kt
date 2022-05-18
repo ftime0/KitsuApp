@@ -19,7 +19,7 @@ class AnimeDescriptionFragment :
     override val binding by viewBinding(FragmentAnimeDescriptionBinding::bind)
     override val viewModel: AnimeDetailedViewModel by viewModels()
     private val args: AnimeDescriptionFragmentArgs by navArgs()
-
+    private val video: String? = null
     override fun setupRequest() {
         viewModel.fetchADetailedAnime(args.anime)
     }
@@ -35,7 +35,6 @@ class AnimeDescriptionFragment :
     private fun subscribesAnime() {
         viewModel.animeDetailedState.collectUiState(success = {
             binding.apply {
-
                 it.apply {
                     imCover.setImage(data.animeDto.coverImage?.original)
                     imPoster.setImage(data.animeDto.posterImage?.medium)
@@ -47,6 +46,7 @@ class AnimeDescriptionFragment :
                     tvRating.text = "Rank #${data.animeDto.ratingRank}"
                     tvPopularity.text = "Rank #${data.animeDto.popularityRank}"
                     data.animeDto.youtubeVideoId?.let {
+                        video == data.animeDto.youtubeVideoId
                         binding.btnTrailer.isVisible = true
                     }
                 }
@@ -57,7 +57,7 @@ class AnimeDescriptionFragment :
     private fun openYoutubeAnime() {
         binding.btnTrailer.setOnClickListener {
             this.startActivity(Intent(Intent.ACTION_VIEW,
-                Uri.parse("vnd.youtube:${args.video}")))
+                Uri.parse("vnd.youtube:${video}")))
         }
     }
 
